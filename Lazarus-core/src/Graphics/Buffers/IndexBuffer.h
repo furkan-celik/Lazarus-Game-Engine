@@ -10,6 +10,7 @@ namespace Lazarus { namespace Graphics {
 	{
 	public:
 		IndexBuffer(GLushort* _data, GLsizei _count); //range of unsigned short probably will be enough to store all data
+		IndexBuffer(GLuint* _data, GLsizei _count); //range of unsigned short probably will be enough to store all data
 		~IndexBuffer();
 
 		void Bind()		const;

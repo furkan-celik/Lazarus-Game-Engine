@@ -28,9 +28,9 @@ int main() {
 	shader.setUniform("colour", Vec4d(0.2f, 1.0f, 0.8f, 1.0f));
 
 	std::vector<Renderable2D*> sprites;
-	for (float x = 0; x < 16.0f; x++) {
-		for (float y = 0; y < 9.0f; y++) {
-			sprites.push_back(new Sprite(x, y, 0.9f, 0.9f, Math::Vec4d(rand() % 1000 / 1000.0f, 0, 1, 1)));
+	for (float x = 0; x < 16.0f; x += 0.1f) {
+		for (float y = 0; y < 9.0f; y += 0.1f) {
+			sprites.push_back(new Sprite(x, y, 0.09f, 0.09f, Math::Vec4d(rand() % 1000 / 1000.0f, 0, 1, 1)));
 		}
 	}
 
