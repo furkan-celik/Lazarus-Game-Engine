@@ -2,6 +2,7 @@
 
 #include <deque>
 #include "Renderer2D.h"
+#include "StaticSprite.h"
 
 //Author: Furkan Celik Date: 25.12.2018
 
@@ -15,7 +16,7 @@ namespace Lazarus { namespace Graphics {
 		void Flush();
 
 	private:
-		std::deque<const Renderable2D*> renderQueue; //queue for sprites will be rendered. deque implementation used for this purpose
+		std::deque<const StaticSprite*> renderQueue; //queue for sprites will be rendered. deque implementation used for this purpose
 	};
 
 } }

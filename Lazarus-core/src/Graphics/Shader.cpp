@@ -11,8 +11,6 @@ namespace Lazarus { namespace Graphics {
 
 		Shader::~Shader() //deletes both path variables and shader program
 		{
-			delete vertPath;
-			delete fragPath;
 			glDeleteProgram(shaderID); //undoes createProgram command and frees memory allocated for shader
 		}
 

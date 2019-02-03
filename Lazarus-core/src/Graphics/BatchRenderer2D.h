@@ -1,11 +1,12 @@
 #pragma once
 #include "Renderer2D.h"
+#include "Buffers/Indexbuffer.h"
 
 //Author: Furkan Celik Date: 12.01.2019
 
 namespace Lazarus { namespace Graphics {
 
-#define RENDERER_MAX_SPRITE 10000
+#define RENDERER_MAX_SPRITE		60000
 #define	RENDERER_VERTEX_SIZE	sizeof(VertexData)
 #define RENDERER_SPRITE_SIZE	RENDERER_VERTEX_SIZE * 4
 #define RENDERER_BUFFER_SIZE	RENDERER_SPRITE_SIZE * RENDERER_MAX_SPRITE
@@ -19,15 +20,18 @@ namespace Lazarus { namespace Graphics {
 	public:
 		BatchRenderer2D();
 		~BatchRenderer2D();
-
-		void Submit(const Renderable2D* renderable);
-		void Flush();
+		
+		void Begin();
+		void Submit(const Renderable2D* renderable) override;
+		void End();
+		void Flush() override;
 
 	private:
 		GLuint vao;
-		IndexBuffer* ibo;
 		GLuint vbo;
+		IndexBuffer* ibo;
 		GLsizei indexCount;
+		VertexData* buffer;
 
 		void init();
 	};

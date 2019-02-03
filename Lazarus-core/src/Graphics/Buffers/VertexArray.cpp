@@ -33,7 +33,7 @@ namespace Lazarus { namespace Graphics {
 		Bind();
 		_buffer->Bind();
 		glEnableVertexAttribArray(_index);
-		_buffer->BindTo(_index);
+		glVertexAttribPointer(_index, _buffer->getComponentCount(), GL_FLOAT, GL_FALSE, 0, 0);
 		_buffer->Unbind();
 		Unbind();
 	}

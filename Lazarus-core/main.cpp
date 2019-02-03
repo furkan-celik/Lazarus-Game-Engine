@@ -9,6 +9,9 @@
 #include "src/Graphics/Renderable2D.h"
 #include "src/Graphics/Renderer2D.h"
 #include "src/Graphics/SimpleRenderer2D.h"
+#include "src/Graphics/BatchRenderer2D.h"
+#include "src/Graphics/StaticSprite.h"
+#include "src/Graphics/Sprite.h"
 
 int main() {
 	
@@ -24,10 +27,14 @@ int main() {
 	shader.setUniform("prMatrix", ortho);
 	shader.setUniform("colour", Vec4d(0.2f, 1.0f, 0.8f, 1.0f));
 
-	Renderable2D sprite1(Vec2d(4.0f, 4.0f), Vec3d(5.0f, 5.0f, 0.0f), Vec4d(0.4f, 0.3f, 0.9f, 1), shader);
-	Renderable2D sprite2(Vec2d(2.0f, 4.0f), Vec3d(7.0f, 1.0f, 0.0f), Vec4d(0.8f, 0.0f, 0.5f, 1), shader);
-	Renderable2D sprite3(Vec2d(2.0f, 4.0f), Vec3d(5.0f, 1.0f, 0.0f), Vec4d(0.0f, 0.8f, 0.5f, 1), shader);
-	SimpleRenderer2D renderer;
+	std::vector<Renderable2D*> sprites;
+	for (float x = 0; x < 16.0f; x++) {
+		for (float y = 0; y < 9.0f; y++) {
+			sprites.push_back(new Sprite(x, y, 0.9f, 0.9f, Math::Vec4d(rand() % 1000 / 1000.0f, 0, 1, 1)));
+		}
+	}
+
+	BatchRenderer2D renderer;
 
 	while (!window.Closed()) {
 		window.Clear();
@@ -36,9 +43,11 @@ int main() {
 		window.GetMousePosVec(x, y);
 		shader.setUniform("light_pos", Vec2d(x * 16.0f / window.GetWidth(), 9.0f - y * 9.0f / window.GetHeight()));
 
-		renderer.Submit(&sprite1);
-		renderer.Submit(&sprite2);
-		renderer.Submit(&sprite3);
+		renderer.Begin();
+		for (int i = 0; i < sprites.size(); i++) {
+			renderer.Submit(sprites[i]);
+		}
+		renderer.End();
 		renderer.Flush(); 
 
 		window.Update();
